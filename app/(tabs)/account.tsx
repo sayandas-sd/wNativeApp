@@ -1,9 +1,18 @@
-import { SafeAreaView, Text } from "react-native";
+import { BottomSheetPage } from "@/components/BottomSheet";
+import { useState } from "react";
+import { Button, SafeAreaView } from "react-native";
 
 export default function account() {
-    return <SafeAreaView style={{backgroundColor: 'green'}}>
+    const [sheetOpen, setSheetOpen] = useState(false);
+
+    return <SafeAreaView>
      
-        <Text>account</Text>
+        <Button title="Open Bottom"
+                onPress={() => {
+                    setSheetOpen(true);
+                }}
+        />
+        {sheetOpen && <BottomSheetPage />}
         
     </SafeAreaView>
 }
