@@ -3,7 +3,9 @@ import React, { useCallback, useRef } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-export const BottomSheetPage = () => {
+export const BottomSheetPage = ({onClose}:{
+    onClose: () => void;
+}) => {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -16,8 +18,12 @@ export const BottomSheetPage = () => {
   return (
     <GestureHandlerRootView style={styles.container}>
       <BottomSheet
+        handleIndicatorStyle={styles.headerIndicator}
+        onClose={onClose}
         ref={bottomSheetRef}
         onChange={handleSheetChanges}
+        enablePanDownToClose={true}
+        snapPoints={['99%']}
       >
         <BottomSheetView style={styles.contentContainer}>
           <Text>Awesome 🎉</Text>
@@ -30,11 +36,12 @@ export const BottomSheetPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
   },
   contentContainer: {
     flex: 1,
-    padding: 36,
     alignItems: 'center',
   },
+  headerIndicator: { 
+    height: 0 
+  }
 });
