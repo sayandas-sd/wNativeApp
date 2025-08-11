@@ -23,7 +23,7 @@ export const BottomSheetPage = ({onClose}:{
         ref={bottomSheetRef}
         onChange={handleSheetChanges}
         enablePanDownToClose={true}
-        snapPoints={['99%']}
+        snapPoints={['100%']}
       >
         <BottomSheetView style={styles.contentContainer}>
           <Text>Awesome 🎉</Text>

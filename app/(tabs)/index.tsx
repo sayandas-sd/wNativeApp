@@ -1,36 +1,59 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Text, View } from 'react-native';
+import Imagecard from "@/components/ImageCard";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedView } from "@/components/ThemedView";
+import { useWallpaper } from "@/hooks/useWallpaper";
+import { Image } from "expo-image";
+import { StyleSheet, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const Tab = createMaterialTopTabNavigator();
 
-export default function Home() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Recommend" component={RecommendScreen} />
-      <Tab.Screen name="Liked" component={LikedScreen} />
-      <Tab.Screen name="Library" component={LibraryScreen} />
-    </Tab.Navigator>
-  );
+export default function explore() {
+    const wallpapers = useWallpaper();
+
+    return <SafeAreaView style={{flex: 1}} edges={["top"]}>
+                <ParallaxScrollView headerBackgroundColor={{dark: "black", light: "white" }}
+                headerImage={<Image style={{flex: 1}} source={{uri: wallpapers[0]?.uri ?? ""}}/>}>
+
+                    <ThemedView style={styles.container}>
+
+                        <ThemedView style={styles.innerConatiner}>
+                            <FlatList
+                                data={wallpapers.filter((_, index) => index % 2 === 0 )}
+                                renderItem={({item}) => <View style={styles.imageContainer}>
+                                    <Imagecard wallpaper={item}/>
+                                </View>}
+                                keyExtractor={item => item.name}
+                            />
+                        </ThemedView>
+                        <ThemedView style={styles.innerConatiner}>
+                            <FlatList
+                                data={wallpapers.filter((_, index) => index % 2 === 1 )}
+                                renderItem={({item}) => <View style={styles.imageContainer}>
+                                    <Imagecard wallpaper={item}/>
+                                </View>}
+                                keyExtractor={item => item.name}
+                            />
+                        </ThemedView>
+
+                    </ThemedView>
+                    
+                </ParallaxScrollView>
+   
+
+    </SafeAreaView>
 }
 
-function RecommendScreen() {
-    return <View>
-        <Text>
-            hi
-        </Text>
-    </View>
-}
-function LikedScreen() {
-    return <View>
-        <Text>
-            hi ProfileScreen
-        </Text>
-    </View>
-}
-function LibraryScreen() {
-    return <View>
-        <Text>
-            hi Library
-        </Text>
-    </View>
-}
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        flex: 1
+    },
+    innerConatiner: {
+        flex: 1,
+        padding: 10
+    },
+    imageContainer: {
+        paddingVertical: 10
+    }
+})

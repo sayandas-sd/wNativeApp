@@ -1,27 +1,24 @@
 import { BottomSheetPage } from "@/components/BottomSheet";
 import { useState } from "react";
-import { Button, SafeAreaView, Text, View } from "react-native";
+import { Button, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function account() {
-    const [sheetOpen, setSheetOpen] = useState(false);
+export default function Account() {
+  const [sheetOpen, setSheetOpen] = useState(false);
 
-    return <SafeAreaView style={{ flex: 1}}>
-        <View style={{ flex: 1 }}>
-            <Text>account</Text>
-            <Text>account</Text>
-            <Text>account</Text>
-            <Text>account</Text>
-
-            <Button title="Open Bottom"
-                    onPress={() => {
-                        setSheetOpen(true);
-                    }}
-            />
-            {sheetOpen && <BottomSheetPage onClose={() => {
-                setSheetOpen(false);
-            }}/>}
+  return (
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+      <View style={{ flex: 1 }}>
         
-        </View>
-     
+        <Button
+          title="Open Bottom"
+          onPress={() => setSheetOpen(true)}
+        />
+
+        {sheetOpen && (
+          <BottomSheetPage onClose={() => setSheetOpen(false)} />
+        )}
+      </View>
     </SafeAreaView>
+  );
 }
