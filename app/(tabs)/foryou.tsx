@@ -1,5 +1,7 @@
+import { SplitView } from '@/components/SplitView';
+import { useLibraryWalpapers, useLikedWalpapers, useRecommendWalpapers } from '@/hooks/useWallpaper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Tab = createMaterialTopTabNavigator();
@@ -18,23 +20,32 @@ export default function Home() {
 }
 
 function RecommendScreen() {
-    return <View>
-        <Text>
-            hi
-        </Text>
+    const wallpaper = useRecommendWalpapers();
+
+    return <View style={styles.container}>     
+        <SplitView wallpapers={wallpaper}/>
     </View>
 }
+
 function LikedScreen() {
-    return <View>
-        <Text>
-            hi ProfileScreen
-        </Text>
+     const wallpaper = useLikedWalpapers();
+
+    return <View style={styles.container}>
+        <SplitView wallpapers={wallpaper}/>
     </View>
 }
+
 function LibraryScreen() {
-    return <View>
-        <Text>
-            hi Library
-        </Text>
+    const wallpaper = useLibraryWalpapers();
+    
+    return <View style={styles.container}>
+         <SplitView wallpapers={wallpaper}/>
     </View>
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "white"
+    }
+})

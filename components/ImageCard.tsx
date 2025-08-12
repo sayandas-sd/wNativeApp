@@ -36,6 +36,7 @@ const imagestyles = StyleSheet.create({
     },
     lebel: {
         color: "white",
+        fontWeight: "600"
     },
     fixposition: {
         position: "absolute",
