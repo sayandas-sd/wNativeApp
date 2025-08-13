@@ -1,6 +1,7 @@
+import { ThemedView } from '@/components/ThemedView';
 import { Wallpaper } from "@/hooks/useWallpaper";
 import { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { BottomSheetPage } from "./BottomSheet";
 import Imagecard from "./ImageCard";
 
@@ -8,7 +9,7 @@ export function SplitView({ wallpapers }: { wallpapers: Wallpaper[] }) {
   const [wallpaperOpen, setWalpaperOpen] = useState<null | Wallpaper>(null);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <ThemedView style={{ flex: 1, backgroundColor: "white" }}>
       <FlatList
         data={wallpapers}
         keyExtractor={(item) => item.name}
@@ -17,12 +18,12 @@ export function SplitView({ wallpapers }: { wallpapers: Wallpaper[] }) {
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <View style={styles.imageContainer}>
+          <ThemedView style={styles.imageContainer}>
             <Imagecard
               onPress={() => setWalpaperOpen(item)}
               wallpaper={item}
             />
-          </View>
+          </ThemedView>
         )}
       />
 
@@ -32,7 +33,7 @@ export function SplitView({ wallpapers }: { wallpapers: Wallpaper[] }) {
           onClose={() => setWalpaperOpen(null)}
         />
       )}
-    </View>
+    </ThemedView>
   );
 }
 
@@ -41,11 +42,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   listContent: {
-    padding: 10,
+ 
   },
   imageContainer: {
     flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 5,
+    padding: 10
   },
 });

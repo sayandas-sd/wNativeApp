@@ -1,5 +1,4 @@
 import { SplitView } from '@/components/SplitView';
-import { ThemedView } from '@/components/ThemedView';
 import { useLibraryWalpapers, useLikedWalpapers, useRecommendWalpapers } from '@/hooks/useWallpaper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { StyleSheet, View } from 'react-native';
@@ -23,9 +22,9 @@ export default function Home() {
 function RecommendScreen() {
     const wallpaper = useRecommendWalpapers();
 
-    return <ThemedView style={styles.container}>     
+    return <View style={styles.container}>     
         <SplitView wallpapers={wallpaper}/>
-    </ThemedView>
+    </View>
 }
 
 function LikedScreen() {

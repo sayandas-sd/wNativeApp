@@ -86,7 +86,7 @@ function AuthButton({lebel,icon}: {
         marginHorizontal: 70,
         marginVertical: 10,
         borderWidth: 1,
-        borderColor: theme === 'light' ? Colors.light.icon : Colors.dark.icon
+        borderColor: theme === 'light' ? Colors.light.text : Colors.dark.icon
     }}>
         {icon}
 

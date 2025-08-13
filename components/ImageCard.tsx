@@ -19,7 +19,7 @@ export default function Imagecard({ wallpaper, onPress }:{
                 <View style={imagestyles.iconContainer}>
                     <Ionicons name={"heart"}
                         size={18}
-                        color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
+                        color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
                         /> 
                 </View>
                 
