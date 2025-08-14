@@ -1,8 +1,8 @@
 # Download your favourite wallpaper  
 
-<img src="assets/images/photo3.png" width="300" />
-<img src="assets/images/photo2.png" width="300" />
-<img src="assets/images/photo1.png" width="300" />
+<img src="assets/images/photo3.jpeg" width="300" />
+<img src="assets/images/photo2.jpeg" width="300" />
+<img src="assets/images/photo1.jpeg" width="300" />
 
 
 ## Get started
