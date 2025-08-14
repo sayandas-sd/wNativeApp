@@ -6,8 +6,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { SafeAreaView } from "react-native-safe-area-context";
 
+import { ThemeAreaContext } from "@/components/ThemeAreaContext";
 import Animated from 'react-native-reanimated';
 
 const TOPBAR_HEIGHT = 250;
@@ -19,7 +19,7 @@ export default function explore() {
     const carouselItem = useCarousel();
 
 
-    return <SafeAreaView style={{flex: 1}} edges={["top"]}>
+    return <ThemeAreaContext style={{flex: 1}} edges={["top"]}>
         {/* <Animated.ScrollView
                 ref={scrollRef}
                 scrollEventThrottle={16}
@@ -63,6 +63,6 @@ export default function explore() {
                     setScroll(yOffset)
                 }} wallpapers={wallpapers} />
         {/* </Animated.ScrollView> */}
-    </SafeAreaView>
+    </ThemeAreaContext>
 }
 

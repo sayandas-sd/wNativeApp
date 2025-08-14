@@ -1,15 +1,15 @@
+import { ThemeAreaContext } from '@/components/ThemeAreaContext';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from "@/hooks/useColorScheme.web";
 import { Ionicons } from "@expo/vector-icons";
 import { Appearance, Pressable, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Account() {
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+    <ThemeAreaContext style={{ flex: 1 }} edges={['top']}>
        
             <Header />
             <ThemedView style={{flex: 1}}>
@@ -19,7 +19,7 @@ export default function Account() {
             </ThemedView>
       
         
-    </SafeAreaView>
+    </ThemeAreaContext>
   );
 }
 
