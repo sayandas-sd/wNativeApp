@@ -1,16 +1,23 @@
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme.web';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
+
+  const theme = useColorScheme() ?? 'light';
+
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue', headerShown: false}}
+    <Tabs screenOptions={{ tabBarActiveTintColor: Colors[theme].tint, headerShown: false, tabBarStyle: {
+                backgroundColor: Colors[theme].background,
+          },}}
           initialRouteName="index"
       >
       <Tabs.Screen
         name="foryou"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={25} name="home" color={color} />,
         }}
       />
 
@@ -18,7 +25,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={20} name="map" color={color} />,
         }}
       />
 
@@ -26,7 +33,7 @@ export default function TabLayout() {
         name="account"
         options={{
           title: 'Account',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={25} name="cog" color={color} />,
         }}
       />
 

@@ -1,72 +1,62 @@
-import { BottomSheetPage } from "@/components/BottomSheet";
-import Imagecard from "@/components/ImageCard";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedView } from "@/components/ThemedView";
-import { useWallpaper, Wallpaper } from "@/hooks/useWallpaper";
 
-
+import { SplitView } from "@/components/SplitView";
+import { useCarousel } from "@/hooks/useCarousel";
+import { useWallpaper } from "@/hooks/useWallpaper";
 import { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { Dimensions, Image, View } from "react-native";
+import Carousel from "react-native-reanimated-carousel";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useBottomTabOverflow } from "@/components/ui/TabBarBackground";
+import Animated, { useAnimatedRef } from 'react-native-reanimated';
+
+const TOPBAR_HEIGHT = 250;
 
 export default function explore() {
     const wallpapers = useWallpaper();
-    const [wallpaperOpen, setWalpaperOpen] = useState<null | Wallpaper>(null);
+    const width = Dimensions.get('window').width;
+    const [yOffset, setScroll] = useState(0);
+    const carouselItem = useCarousel();
+
+   
+      const scrollRef = useAnimatedRef<Animated.ScrollView>();
+      const bottom = useBottomTabOverflow();
 
     return <SafeAreaView style={{flex: 1}} edges={["top"]}>
-        
-                <ParallaxScrollView headerBackgroundColor={{dark: "black", light: "white" }}
-                headerImage={<Image style={{flex: 1}} source={{uri: wallpapers[0]?.uri ?? ""}}/>}>
-
-                    <ThemedView style={styles.container}>
-
-                        <ThemedView style={styles.innerConatiner}>
-                            <FlatList
-                                data={wallpapers.filter((_, index) => index % 2 === 0 )}
-                                renderItem={({item}) => <View style={styles.imageContainer}>
-                                    <Imagecard onPress={() => {
-                                        setWalpaperOpen(item);
-                                    }} wallpaper={item}/>
-                                </View>}
-                                keyExtractor={item => item.name}
-                            />
-                        </ThemedView>
-                        <ThemedView style={styles.innerConatiner}>
-                            <FlatList
-                                data={wallpapers.filter((_, index) => index % 2 === 1 )}
-                                renderItem={({item}) => <View style={styles.imageContainer}>
-                                    <Imagecard onPress={() => {
-                                        setWalpaperOpen(item);
-                                    }} wallpaper={item}/> 
-                                </View>}
-                                keyExtractor={item => item.name}
-                            />
-                            
-                        </ThemedView>
-
-                    </ThemedView>
-                    
-                </ParallaxScrollView>
-   
-                {wallpaperOpen && <BottomSheetPage wallpaper={wallpaperOpen} onClose={() => {
-                    setWalpaperOpen(null);
-                }}/>}
-
+        {/* <Animated.ScrollView
+                ref={scrollRef}
+                scrollEventThrottle={16}
+                scrollIndicatorInsets={{ bottom }}
+                contentContainerStyle={{ paddingBottom: bottom }}> */}
+                <Animated.View style={{height: TOPBAR_HEIGHT - yOffset}}>
+                    <Carousel
+                        loop={true}
+                        width={width}
+                        height={TOPBAR_HEIGHT- yOffset}
+                        snapEnabled={true}
+                        pagingEnabled={true}
+                        autoPlayInterval={2000}
+                        data={carouselItem}
+                        style={{ width: "100%" }}
+                        onSnapToItem={(index) => console.log("current index:", index)}
+                        renderItem={({ index }) => (
+                            <View
+                            style={{
+                                flex: 1,
+                                borderWidth: 1,
+                                justifyContent: "center",
+                            }}
+                            >
+                           <Image source={{uri: carouselItem[index]}} style={{height: TOPBAR_HEIGHT}}/>
+                        </View>
+                        )}
+                        />
+                </Animated.View>
+                
+                <SplitView onScroll={(yOffset) => {
+                    setScroll(yOffset)
+                }} wallpapers={wallpapers} />
+        {/* </Animated.ScrollView> */}
     </SafeAreaView>
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        flex: 1
-    },
-    innerConatiner: {
-        flex: 1,
-        padding: 10
-    },
-    imageContainer: {
-        paddingVertical: 10
-    }
-})

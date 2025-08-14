@@ -31,27 +31,32 @@ export const BottomSheetPage = ({onClose, wallpaper}:{
         snapPoints={['95%']}
         handleStyle={{ display: 'none'}}
       >
-        <BottomSheetView style={styles.contentContainer}>
-            <ThemedView style={{flex: 1}}>
-                <Image style={styles.imageSize} source={{uri: wallpaper.uri}}/>
-                <View style={styles.closeBar}>
-                    <Ionicons   name={"close"}
-                                size={30}
-                                color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
-                            /> 
+        <ThemedView style={{flex: 1}}>
+
+            <BottomSheetView style={styles.contentContainer}>
+                <ThemedView style={{flex: 1}}>
+                    <Image style={styles.imageSize} source={{uri: wallpaper.uri}}/>
+                    <View style={styles.closeBar}>
+                        <Ionicons   name={"close"}
+                                    size={30}
+                                    color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
+                                /> 
+                        
+                        <Ionicons   name={"heart"}
+                                    size={30}
+                                    color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
+                                /> 
+                    </View>
                     
-                    <Ionicons   name={"heart"}
-                                size={30}
-                                color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
-                            /> 
-                </View>
-                <ThemedView style={styles.textContainer}>
-                    <ThemedText style={styles.text}>{wallpaper.name}</ThemedText>
+                    <ThemedView style={styles.textContainer}>
+                        <ThemedText style={styles.text}>{wallpaper.name}</ThemedText>
+                    </ThemedView>
+                    
+                    <DownloadButton />
                 </ThemedView>
-                
-                <DownloadButton />
-          </ThemedView>
-        </BottomSheetView>
+            </BottomSheetView>
+
+        </ThemedView>
       </BottomSheet>
    
   );
