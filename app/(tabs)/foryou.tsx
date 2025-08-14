@@ -21,6 +21,7 @@ export default function Home() {
           },
           tabBarIndicatorStyle: {
               backgroundColor: Colors[theme].indicator,
+              height: 4
             }
         }}>
             <Tab.Screen name="Recommend" component={RecommendScreen} />

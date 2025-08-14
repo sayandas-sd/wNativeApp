@@ -3,6 +3,8 @@ import { Colors } from '@/constants/Colors';
 import { Wallpaper } from '@/hooks/useWallpaper';
 import { Ionicons } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 import React, { useCallback, useRef } from 'react';
 import { Image, Pressable, StyleSheet, useColorScheme, View } from 'react-native';
 import { ThemedText } from './ThemedText';
@@ -39,6 +41,7 @@ export const BottomSheetPage = ({onClose, wallpaper}:{
                     <View style={styles.closeBar}>
                         <Ionicons   name={"close"}
                                     size={30}
+                                    onPress={onClose}
                                     color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
                                 /> 
                         
@@ -52,7 +55,7 @@ export const BottomSheetPage = ({onClose, wallpaper}:{
                         <ThemedText style={styles.text}>{wallpaper.name}</ThemedText>
                     </ThemedView>
                     
-                    <DownloadButton />
+                    <DownloadButton url={wallpaper.uri}/>
                 </ThemedView>
             </BottomSheetView>
 
@@ -62,11 +65,33 @@ export const BottomSheetPage = ({onClose, wallpaper}:{
   );
 };
 
-function DownloadButton() {
+function DownloadButton({url}: {url: string}) {
 
     const theme = useColorScheme() ?? 'light';
 
-    return <Pressable style={{
+    return <Pressable 
+        onPress={async () => {
+
+            let date = new Date().getTime();
+
+            let fileUri = FileSystem.documentDirectory + `${date}.jpg`;
+            try {
+                await FileSystem.downloadAsync(url, fileUri)
+
+                const response = await MediaLibrary.requestPermissionsAsync(true);
+
+                if (response.granted) {
+                    await MediaLibrary.createAssetAsync(fileUri);
+                } else {
+                    console.error('permission not granted')
+                }
+            } catch (err) {
+                console.log("FS Err: ", err)
+            }
+
+           
+        }}
+        style={{
         backgroundColor: "black",
         flexDirection: "row",
         justifyContent: "center",

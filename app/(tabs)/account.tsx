@@ -10,11 +10,15 @@ export default function Account() {
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={['top']}>
-        <Header />
-        <ThemedView style={{flex: 1}}>
-            <LoginButton />
-            <ThemeSelector />
-        </ThemedView>
+       
+            <Header />
+            <ThemedView style={{flex: 1}}>
+                <LoginButton />
+                <ThemeSelector />
+                <About />
+            </ThemedView>
+      
+        
     </SafeAreaView>
   );
 }
@@ -101,7 +105,22 @@ function AuthButton({lebel,icon}: {
     </Pressable>
 }
 
-
+function About() {
+    return <ThemedView style={styles.outContainer}>
+        <ThemedText style={styles.textSize}>About</ThemedText>
+        <ThemedView style={{ marginTop: 10}}>
+            <Pressable>
+                <ThemedText style={{marginTop: 10, fontSize: 15, fontWeight: "600"}}>About</ThemedText>
+            </Pressable>
+            <Pressable>
+                <ThemedText style={{marginTop: 10, fontSize: 15, fontWeight: "600"}}>Privacy Policy</ThemedText>
+            </Pressable>
+            <Pressable>
+                <ThemedText style={{marginTop: 10, fontSize: 15, fontWeight: "600"}}>Terms of Service</ThemedText>
+            </Pressable>
+        </ThemedView>
+    </ThemedView>
+}
 
 
 const styles = StyleSheet.create({
@@ -112,7 +131,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     topbar: {
-       padding: 20,
+       padding: 30,
     
     },
     textData: {
@@ -126,7 +145,7 @@ const styles = StyleSheet.create({
         flex: 1
     }, 
     outContainer: {
-        padding: 20
+        padding: 30
     }, 
     themeText: {
         textAlign: "center",
