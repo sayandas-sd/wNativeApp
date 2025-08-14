@@ -8,7 +8,7 @@ import { Dimensions, Image, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
 import { ThemeAreaContext } from "@/components/ThemeAreaContext";
-import Animated from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
 const TOPBAR_HEIGHT = 250;
 
@@ -18,6 +18,24 @@ export default function explore() {
     const [yOffset, setScroll] = useState(0);
     const carouselItem = useCarousel();
 
+    const headerAnimatedStyle = useAnimatedStyle(() => {
+        return {
+          transform: [
+            {
+              scale: interpolate(yOffset, [-TOPBAR_HEIGHT, 0, TOPBAR_HEIGHT], [1.5, 1, 1]),
+            },
+          ],
+        };
+      });
+    
+    const textOpacityStyle = useAnimatedStyle(() => {
+        return {
+              opacity: interpolate(yOffset, [-TOPBAR_HEIGHT, 0, TOPBAR_HEIGHT], [1, 1, 0]),
+        };
+
+    });
+    
+
 
     return <ThemeAreaContext style={{flex: 1}} edges={["top"]}>
         {/* <Animated.ScrollView
@@ -25,7 +43,7 @@ export default function explore() {
                 scrollEventThrottle={16}
                 scrollIndicatorInsets={{ bottom }}
                 contentContainerStyle={{ paddingBottom: bottom }}> */}
-                <Animated.View style={{height: TOPBAR_HEIGHT - yOffset}}>
+                <Animated.View style={[{height: TOPBAR_HEIGHT - yOffset}, headerAnimatedStyle]}>
                     <Carousel
                         loop={true}
                         width={width}
@@ -50,18 +68,22 @@ export default function explore() {
                                     <LinearGradient
                                         colors={['transparent', 'black']}
                                         style={{flex: 1, zIndex: 10, position: "absolute", height: TOPBAR_HEIGHT/2 , width: "100%", bottom: 0}}>
-                                            <Text style={{textAlign: "center", fontSize: 25, fontWeight: "600", paddingTop: TOPBAR_HEIGHT/3, color: "white"}}>
-                                                {carouselItem[index].title}
-                                            </Text>
+                                            <Animated.View style={textOpacityStyle}>
+                                                <Text style={[{textAlign: "center", fontSize: 25, fontWeight: "600", paddingTop: TOPBAR_HEIGHT/3, color: "white"}, textOpacityStyle]}>
+                                                    {carouselItem[index].title}
+                                                </Text>
+                                            </Animated.View>
                             </LinearGradient>
                             </>
                         )}
                         />
                 </Animated.View>
                 
-                <SplitView onScroll={(yOffset) => {
-                    setScroll(yOffset)
-                }} wallpapers={wallpapers} />
+                <View style={{flex: 1, borderRadius: 20}}>
+                    <SplitView onScroll={(yOffset) => {
+                        setScroll(yOffset)
+                    }} wallpapers={wallpapers} />
+                </View>
         {/* </Animated.ScrollView> */}
     </ThemeAreaContext>
 }
