@@ -11,7 +11,7 @@ export default function TabLayout() {
     <Tabs screenOptions={{ tabBarActiveTintColor: Colors[theme].tint, headerShown: false, tabBarStyle: {
                 backgroundColor: Colors[theme].background,
           },}}
-          initialRouteName="index"
+          initialRouteName="foryou"
       >
       <Tabs.Screen
         name="foryou"

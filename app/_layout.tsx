@@ -1,6 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Layout() {
@@ -20,7 +18,7 @@ export default function Layout() {
         headerShown: false
       }}>
 
-        <Stack.Screen
+        {/* <Stack.Screen
 
           name="(bottombar)/accountinfo"
           options={{
@@ -37,7 +35,7 @@ export default function Layout() {
               </TouchableOpacity>
             ),
           }}
-        />
+        /> */}
       </Stack>
     </GestureHandlerRootView>
   );
