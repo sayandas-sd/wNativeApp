@@ -19,6 +19,9 @@ export default function Home() {
             tabBarStyle: {
                 backgroundColor: Colors[theme].background,
           },
+          tabBarIndicatorStyle: {
+              backgroundColor: Colors[theme].indicator,
+            }
         }}>
             <Tab.Screen name="Recommend" component={RecommendScreen} />
             <Tab.Screen name="Liked" component={LikedScreen} />

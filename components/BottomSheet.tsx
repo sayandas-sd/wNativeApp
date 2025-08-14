@@ -47,7 +47,7 @@ export const BottomSheetPage = ({onClose, wallpaper}:{
                                     color={theme === 'light' ? Colors.light.icon : Colors.dark.text}
                                 /> 
                     </View>
-                    
+
                     <ThemedView style={styles.textContainer}>
                         <ThemedText style={styles.text}>{wallpaper.name}</ThemedText>
                     </ThemedView>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     height: 0 
   },
   imageSize: {
-    height: 550,
+    height: 500,
     borderRadius: 10
   }, 
   closeBar: {

@@ -33,7 +33,7 @@ export default function TabLayout() {
         name="account"
         options={{
           title: 'Account',
-          tabBarIcon: ({ color }) => <FontAwesome size={25} name="cog" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={25} name="user" color={color} />,
         }}
       />
 
